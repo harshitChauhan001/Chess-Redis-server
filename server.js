@@ -7,11 +7,8 @@ const Redis = require("redis");
 const app = express();
 const server = http.createServer(app);
 
-// add time limit to key generated
-// on disconnecting the key should be destroyed and other user will see that it won or something like that
+//i have to add time limit to key generated and also limit the maximum number of players to two
 
-// on closing window same shoudl show to other
-// if one user if playing then it is fine if connected devices to a key is zero for more than 5 minutes then delete that key
 
 const io = socketIo(server, {
   cors: {
