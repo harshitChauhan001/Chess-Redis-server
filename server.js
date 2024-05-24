@@ -68,6 +68,9 @@ app.get("/api/enter-key", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+app.get("/", async (req, res) => {
+  return res.send("This is backend of chess-Redis...");
+});
 
 io.on("connection", (socket) => {
   console.log("A user connected");
