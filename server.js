@@ -11,7 +11,7 @@ const server = http.createServer(app);
 
 const io = socketIo(server, {
   cors: {
-    origin: `https://chess-blue-seven.vercel.app/`,
+    origin: `https://chess-blue-seven.vercel.app`,
     methods: ["GET", "POST"],
   },
 });
