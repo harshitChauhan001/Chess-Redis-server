@@ -9,15 +9,14 @@ const server = http.createServer(app);
 
 //i have to add time limit to key generated and also limit the maximum number of players to two
 
-
 const io = socketIo(server, {
   cors: {
-    origin: `http://localhost:5173`, 
+    origin: `http://localhost:5173`,
     methods: ["GET", "POST"],
   },
 });
 
-require('dotenv').config(); 
+require("dotenv").config();
 
 const redisClient = Redis.createClient({
   password: process.env.REDIS_PASSWORD,
@@ -52,7 +51,7 @@ app.post("/api/set-key", async (req, res) => {
 });
 
 app.get("/api/enter-key", async (req, res) => {
-  const key = req.query.key; 
+  const key = req.query.key;
   try {
     const result = await redisClient.GET(key);
     if (result) {
@@ -76,7 +75,7 @@ io.on("connection", (socket) => {
   socket.on("join", async (uniqueKey) => {
     try {
       let playersCount = await redisClient.INCR(uniqueKey);
-       console.log("counted players are :", playersCount)
+      console.log("counted players are :", playersCount);
       if (playersCount > 2) {
         await redisClient.DECR(uniqueKey);
         socket.emit("room full");
